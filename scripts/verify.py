@@ -21,6 +21,9 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+
+if hasattr(sys.stdout, "reconfigure") and (sys.stdout.encoding or "").lower() not in ("utf-8", "utf8"):
+    sys.stdout.reconfigure(encoding="utf-8")
 CHECKS: list[dict] = []
 
 
@@ -218,6 +221,7 @@ def verify_health() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="dsh-research-lab acceptance suite")
+
     parser.add_argument("--suite", choices=["education", "health", "all"], default="all")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()

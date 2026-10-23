@@ -19,6 +19,9 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 
+if hasattr(sys.stdout, "reconfigure") and (sys.stdout.encoding or "").lower() not in ("utf-8", "utf8"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 SOURCES = {
     "education-student-performance": {
         "base": "https://archive.ics.uci.edu/static/public/320/student+performance.zip",
@@ -53,6 +56,7 @@ def declared_hashes(dataset: str) -> dict[str, str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+
     parser.add_argument("--fetch", action="store_true")
     parser.add_argument("--restore", action="store_true")
     parser.add_argument("--json", action="store_true")

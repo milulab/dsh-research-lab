@@ -1,0 +1,8 @@
+# 数据完整性：raw/ 与 expected/ 为 SHA256 锁定的基准文件，
+# 禁止任何平台在检出时做换行符转换（Windows autocrlf 会把 LF 转 CRLF）
+datasets/**/raw/** -text
+datasets/**/expected/** -text
+
+# 图表产物按二进制处理
+*.png binary
+*.ico binary

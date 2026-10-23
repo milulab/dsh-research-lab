@@ -33,6 +33,9 @@ from tools.stat_tests import (  # noqa: E402
 from tools.report_builder import build_education_report  # noqa: E402
 
 RAW = REPO / "datasets/education-student-performance/raw/student-por.csv"
+
+if hasattr(sys.stdout, "reconfigure") and (sys.stdout.encoding or "").lower() not in ("utf-8", "utf8"):
+    sys.stdout.reconfigure(encoding="utf-8")
 OUT = REPO / "examples/education-demo/outputs"
 
 M1_FORMULA = "G3 ~ C(school) + C(sex) + Medu + Fedu + studytime + failures + absences"
@@ -175,6 +178,7 @@ NOT_APPLICABLE = [
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+
     (OUT / "tables").mkdir(exist_ok=True)
     (OUT / "figures").mkdir(exist_ok=True)
 

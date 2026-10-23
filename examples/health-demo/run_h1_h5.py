@@ -34,6 +34,9 @@ from tools.stat_tests import (  # noqa: E402
 )
 
 RAW = REPO / "datasets/health-heart-disease/raw/processed.cleveland.data"
+
+if hasattr(sys.stdout, "reconfigure") and (sys.stdout.encoding or "").lower() not in ("utf-8", "utf8"):
+    sys.stdout.reconfigure(encoding="utf-8")
 OUT = REPO / "examples/health-demo/outputs"
 
 GLM_FORMULA = ("target ~ age + sex + cp + trestbps + chol + fbs + restecg "
@@ -139,6 +142,7 @@ NOT_APPLICABLE = [
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+
     (OUT / "tables").mkdir(exist_ok=True)
     (OUT / "figures").mkdir(exist_ok=True)
 

@@ -1,0 +1,25 @@
+name: education
+label: 教育科研
+version: 1.0.0
+description: 学习行为与学业成绩的关联研究方法域。以 UCI Student Performance（葡萄牙两所中学、葡语课 649 名学生真实数据）为基准工作数据。
+audience: 高校教师、教育研究者
+research_questions:
+  - RQ1 学习时间、缺勤、既往不及格、父母教育水平与最终成绩 G3 的关联
+  - RQ2 纳入期中成绩（G1/G2）后模型解释力的变化与任务定义问题
+methods:
+  primary: [spearman, kruskal_wallis, OLS_with_HC3_sensitivity]
+  leakage_audit: [M1_without_interim_grades, M2_with_interim_grades]
+data:
+  benchmark: datasets/education-student-performance/
+  protocol: datasets/education-student-performance/protocol.md
+  dictionary: datasets/education-student-performance/metadata/data_dictionary.csv
+  license: CC BY 4.0
+boundaries:
+  - 观察性数据：只谈关联，不谈因果
+  - 这是中学数据（教学对象是高校教师，研究主题是教育科研方法）
+  - 两课程文件存在 382 名重叠学生，禁止合并为独立样本
+skills:
+  - edu-performance-analysis
+  - edu-leakage-audit
+knowledge:
+  - knowledge/methodology.md

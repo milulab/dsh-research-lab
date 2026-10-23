@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# 产物：examples 输出可复现，不入库（expected/ 黄金文件除外）
+examples/*/outputs/
+!datasets/*/expected/
+
+# 系统/编辑器
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# DSH 本地运行时
+.dsh/
+*.tgz

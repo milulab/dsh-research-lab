@@ -1,0 +1,1184 @@
+{
+  "suite": "education-student-performance",
+  "protocol_version": "V1.0",
+  "data_file": "raw/student-por.csv",
+  "env": {
+    "python": "3.12.12",
+    "platform": "macOS-15.7.4-arm64-arm-64bit",
+    "seed": 42,
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.0",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "scikit-learn": "1.9.1",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "t1_audit": {
+    "ok": true,
+    "n_rows": 649,
+    "n_cols": 33,
+    "columns": [
+      {
+        "name": "school",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "GP": 423,
+          "MS": 226
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "sex",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "F": 383,
+          "M": 266
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "age",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 8,
+        "min": 15.0,
+        "max": 22.0,
+        "mean": 16.744222,
+        "std": 1.218138,
+        "quartiles": [
+          16.0,
+          17.0,
+          18.0
+        ],
+        "outliers_iqr": 1
+      },
+      {
+        "name": "address",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "U": 452,
+          "R": 197
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "famsize",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "GT3": 457,
+          "LE3": 192
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "Pstatus",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "T": 569,
+          "A": 80
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "Medu",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 0.0,
+        "max": 4.0,
+        "mean": 2.514638,
+        "std": 1.134552,
+        "quartiles": [
+          2.0,
+          2.0,
+          4.0
+        ],
+        "outliers_iqr": 0
+      },
+      {
+        "name": "Fedu",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 0.0,
+        "max": 4.0,
+        "mean": 2.306626,
+        "std": 1.099931,
+        "quartiles": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "outliers_iqr": 0
+      },
+      {
+        "name": "Mjob",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "top_values": {
+          "other": 258,
+          "services": 136,
+          "at_home": 135,
+          "teacher": 72,
+          "health": 48
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "Fjob",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "top_values": {
+          "other": 367,
+          "services": 181,
+          "at_home": 42,
+          "teacher": 36,
+          "health": 23
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "reason",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 4,
+        "top_values": {
+          "course": 285,
+          "home": 149,
+          "reputation": 143,
+          "other": 72
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "guardian",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 3,
+        "top_values": {
+          "mother": 455,
+          "father": 153,
+          "other": 41
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "traveltime",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 4,
+        "min": 1.0,
+        "max": 4.0,
+        "mean": 1.568567,
+        "std": 0.74866,
+        "quartiles": [
+          1.0,
+          1.0,
+          2.0
+        ],
+        "outliers_iqr": 16
+      },
+      {
+        "name": "studytime",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 4,
+        "min": 1.0,
+        "max": 4.0,
+        "mean": 1.930663,
+        "std": 0.82951,
+        "quartiles": [
+          1.0,
+          2.0,
+          2.0
+        ],
+        "outliers_iqr": 35
+      },
+      {
+        "name": "failures",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 4,
+        "min": 0.0,
+        "max": 3.0,
+        "mean": 0.22188,
+        "std": 0.593235,
+        "quartiles": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outliers_iqr": 0
+      },
+      {
+        "name": "schoolsup",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "no": 581,
+          "yes": 68
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "famsup",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "yes": 398,
+          "no": 251
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "paid",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "no": 610,
+          "yes": 39
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "activities",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "no": 334,
+          "yes": 315
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "nursery",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "yes": 521,
+          "no": 128
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "higher",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "yes": 580,
+          "no": 69
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "internet",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "yes": 498,
+          "no": 151
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "romantic",
+        "dtype": "str",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 2,
+        "top_values": {
+          "no": 410,
+          "yes": 239
+        },
+        "string_shaped_numeric": "False",
+        "sentinel_values": []
+      },
+      {
+        "name": "famrel",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 3.930663,
+        "std": 0.955717,
+        "quartiles": [
+          4.0,
+          4.0,
+          5.0
+        ],
+        "outliers_iqr": 51
+      },
+      {
+        "name": "freetime",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 3.180277,
+        "std": 1.051093,
+        "quartiles": [
+          3.0,
+          3.0,
+          4.0
+        ],
+        "outliers_iqr": 45
+      },
+      {
+        "name": "goout",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 3.1849,
+        "std": 1.175766,
+        "quartiles": [
+          2.0,
+          3.0,
+          4.0
+        ],
+        "outliers_iqr": 0
+      },
+      {
+        "name": "Dalc",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 1.502311,
+        "std": 0.924834,
+        "quartiles": [
+          1.0,
+          1.0,
+          2.0
+        ],
+        "outliers_iqr": 34
+      },
+      {
+        "name": "Walc",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 2.280431,
+        "std": 1.28438,
+        "quartiles": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "outliers_iqr": 0
+      },
+      {
+        "name": "health",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 5,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 3.53621,
+        "std": 1.446259,
+        "quartiles": [
+          2.0,
+          4.0,
+          5.0
+        ],
+        "outliers_iqr": 0
+      },
+      {
+        "name": "absences",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 24,
+        "min": 0.0,
+        "max": 32.0,
+        "mean": 3.659476,
+        "std": 4.640759,
+        "quartiles": [
+          0.0,
+          2.0,
+          6.0
+        ],
+        "outliers_iqr": 21
+      },
+      {
+        "name": "G1",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 17,
+        "min": 0.0,
+        "max": 19.0,
+        "mean": 11.399076,
+        "std": 2.745265,
+        "quartiles": [
+          10.0,
+          11.0,
+          13.0
+        ],
+        "outliers_iqr": 16
+      },
+      {
+        "name": "G2",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 16,
+        "min": 0.0,
+        "max": 19.0,
+        "mean": 11.570108,
+        "std": 2.913639,
+        "quartiles": [
+          10.0,
+          11.0,
+          13.0
+        ],
+        "outliers_iqr": 25
+      },
+      {
+        "name": "G3",
+        "dtype": "int64",
+        "missing": 0,
+        "missing_pct": 0.0,
+        "n_unique": 17,
+        "min": 0.0,
+        "max": 19.0,
+        "mean": 11.906009,
+        "std": 3.230656,
+        "quartiles": [
+          10.0,
+          12.0,
+          14.0
+        ],
+        "outliers_iqr": 16
+      }
+    ],
+    "exact_duplicate_rows": 0,
+    "exact_duplicate_rows_involved": 0,
+    "total_missing_cells": 0,
+    "rows_with_any_missing": 0,
+    "source": "/Users/leo/repos/milulab/dsh-research-lab/datasets/education-student-performance/raw/student-por.csv",
+    "sha256": "a7594a11d7771c0efe1a740824e0e833da9c4cad07c39a9766a874575563fb3f",
+    "raw_bytes_check": {
+      "g1_quoted_in_raw": true,
+      "g2_quoted_in_raw": true,
+      "lesson": "引号数字被标准解析器静默吸收为整数——解析层必须显式断言目标类型"
+    },
+    "dtype_assertions_passed": true
+  },
+  "t2_associations": [
+    {
+      "variable": "studytime",
+      "method": "spearman",
+      "statistic": 0.274712,
+      "p_value": 1.0606240382701246e-12
+    },
+    {
+      "variable": "failures",
+      "method": "spearman",
+      "statistic": -0.44836,
+      "p_value": 2.0474600172119595e-33
+    },
+    {
+      "variable": "Medu",
+      "method": "spearman",
+      "statistic": 0.283925,
+      "p_value": 1.6882115741599866e-13
+    },
+    {
+      "variable": "Fedu",
+      "method": "spearman",
+      "statistic": 0.234633,
+      "p_value": 1.4436971801898007e-09
+    },
+    {
+      "variable": "absences",
+      "method": "pearson",
+      "statistic": -0.091379,
+      "p_value": 0.01989562393916078
+    },
+    {
+      "variable": "absences",
+      "method": "spearman",
+      "statistic": -0.15851,
+      "p_value": 4.991938518202622e-05
+    }
+  ],
+  "t2b_group_tests": {
+    "sex_g3_two_group": {
+      "group1": {
+        "n": 266,
+        "mean": 11.406,
+        "sd": 3.3207
+      },
+      "group0": {
+        "n": 383,
+        "mean": 12.2533,
+        "sd": 3.1241
+      },
+      "welch_t": {
+        "t": -3.2747,
+        "p_value": 0.0011245651360440683,
+        "df": 547.44
+      },
+      "mann_whitney_u": {
+        "u": 42961.5,
+        "p_value": 0.0006316613877703309
+      },
+      "cohens_d": -0.2643,
+      "mean_diff": -0.8472
+    },
+    "medu_g3_welch_anova": {
+      "n_groups": 5,
+      "group_ns": [
+        6,
+        143,
+        186,
+        139,
+        175
+      ],
+      "group_means": [
+        11.6667,
+        10.7972,
+        11.6613,
+        11.9209,
+        13.0686
+      ],
+      "welch_f": 9.8516,
+      "df_num": 4.0,
+      "df_denom": 39.36,
+      "p_value": 1.2767097622139237e-05,
+      "kruskal_wallis": {
+        "h": 57.215,
+        "p_value": 1.1151044572392797e-11
+      }
+    },
+    "school_x_higher": {
+      "table": [
+        [
+          32,
+          391
+        ],
+        [
+          37,
+          189
+        ]
+      ],
+      "expected_min": 24.0277,
+      "pct_cells_expected_lt_5": 0.0,
+      "chi2": 11.1147,
+      "dof": 1,
+      "p_value": 0.0008564485828869606,
+      "n": 649,
+      "cramers_v": 0.1309,
+      "expected_frequency_ok": true
+    },
+    "schoolsup_x_sex": {
+      "table": [
+        [
+          332,
+          249
+        ],
+        [
+          51,
+          17
+        ]
+      ],
+      "expected_min": 27.8706,
+      "pct_cells_expected_lt_5": 0.0,
+      "chi2": 7.3042,
+      "dof": 1,
+      "p_value": 0.006879281878007668,
+      "n": 649,
+      "cramers_v": 0.1061,
+      "expected_frequency_ok": true
+    },
+    "multiplicity_over_family": {
+      "n_tests": 8,
+      "bonferroni_p": [
+        8.484992306160997e-12,
+        1.6379680137695676e-32,
+        0.15916499151328625,
+        0.008996521088352546,
+        0.005053291102162647,
+        0.0001021367809771139,
+        0.006851588663095685,
+        0.05503425502406135
+      ],
+      "bonferroni_significant": [
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "bh_fdr_p": [
+        4.2424961530804985e-12,
+        1.6379680137695676e-32,
+        0.01989562393916078,
+        0.001499420181392091,
+        0.0012633227755406617,
+        3.404559365903797e-05,
+        0.001370317732619137,
+        0.007862036432008763
+      ],
+      "bh_fdr_significant": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "family": {
+        "studytime_spearman": 1.0606240382701246e-12,
+        "failures_spearman": 2.0474600172119595e-33,
+        "absences_pearson": 0.01989562393916078,
+        "sex_welch_t": 0.0011245651360440683,
+        "sex_mann_whitney": 0.0006316613877703309,
+        "medu_welch_anova": 1.2767097622139237e-05,
+        "school_x_higher_chi2": 0.0008564485828869606,
+        "schoolsup_x_sex_chi2": 0.006879281878007668
+      }
+    }
+  },
+  "t3_model_m1": {
+    "ok": true,
+    "label": "M1_without_prior_grades",
+    "formula": "G3 ~ C(school) + C(sex) + Medu + Fedu + studytime + failures + absences",
+    "n_obs": 649,
+    "df_resid": 641,
+    "r_squared": 0.270848,
+    "adj_r_squared": 0.262885,
+    "f_statistic": 34.014695,
+    "f_pvalue": 2.3610336552358672e-40,
+    "aic": 3173.9257,
+    "bic": 3209.7292,
+    "coefficients": [
+      {
+        "term": "Intercept",
+        "coef": 11.209285,
+        "std_err": 0.461874,
+        "ci_low": 10.302316,
+        "ci_high": 12.116254,
+        "t": 24.2691,
+        "p_value": 8.748675561313433e-93
+      },
+      {
+        "term": "C(school)[T.MS]",
+        "coef": -1.464407,
+        "std_err": 0.244445,
+        "ci_low": -1.944417,
+        "ci_high": -0.984396,
+        "t": -5.9907,
+        "p_value": 3.483188689463041e-09
+      },
+      {
+        "term": "C(sex)[T.M]",
+        "coef": -0.735161,
+        "std_err": 0.230135,
+        "ci_low": -1.18707,
+        "ci_high": -0.283252,
+        "t": -3.1945,
+        "p_value": 0.0014695152626942767
+      },
+      {
+        "term": "Medu",
+        "coef": 0.266106,
+        "std_err": 0.128956,
+        "ci_low": 0.012879,
+        "ci_high": 0.519334,
+        "t": 2.0635,
+        "p_value": 0.03946329431457828
+      },
+      {
+        "term": "Fedu",
+        "coef": 0.176521,
+        "std_err": 0.130727,
+        "ci_low": -0.080184,
+        "ci_high": 0.433226,
+        "t": 1.3503,
+        "p_value": 0.17739548389003582
+      },
+      {
+        "term": "studytime",
+        "coef": 0.510601,
+        "std_err": 0.138504,
+        "ci_low": 0.238625,
+        "ci_high": 0.782577,
+        "t": 3.6865,
+        "p_value": 0.00024656645259530985
+      },
+      {
+        "term": "failures",
+        "coef": -1.667389,
+        "std_err": 0.191037,
+        "ci_low": -2.042524,
+        "ci_high": -1.292254,
+        "t": -8.7281,
+        "p_value": 2.2337872022810077e-17
+      },
+      {
+        "term": "absences",
+        "coef": -0.05033,
+        "std_err": 0.024292,
+        "ci_low": -0.098031,
+        "ci_high": -0.002628,
+        "t": -2.0719,
+        "p_value": 0.03867717225457943
+      }
+    ],
+    "vif": [
+      {
+        "term": "Intercept",
+        "vif": 1.0
+      },
+      {
+        "term": "C(school)[T.MS]",
+        "vif": 1.1441
+      },
+      {
+        "term": "C(sex)[T.M]",
+        "vif": 1.0806
+      },
+      {
+        "term": "Medu",
+        "vif": 1.803
+      },
+      {
+        "term": "Fedu",
+        "vif": 1.7415
+      },
+      {
+        "term": "studytime",
+        "vif": 1.1118
+      },
+      {
+        "term": "failures",
+        "vif": 1.0818
+      },
+      {
+        "term": "absences",
+        "vif": 1.0704
+      }
+    ],
+    "vif_max": 1.803,
+    "breusch_pagan": {
+      "lm_stat": 170.423433,
+      "lm_pvalue": 2.0439542953786644e-33,
+      "f_stat": 32.609029,
+      "f_pvalue": 8.065408950157563e-39
+    },
+    "jarque_bera": {
+      "stat": 321.10956,
+      "pvalue": 1.8704455373787157e-70,
+      "skew": -0.8362,
+      "kurtosis": 6.0129
+    },
+    "hc3_se": {
+      "Intercept": 0.441819,
+      "C(school)[T.MS]": 0.274956,
+      "C(sex)[T.M]": 0.236388,
+      "Medu": 0.141005,
+      "Fedu": 0.134612,
+      "studytime": 0.130828,
+      "failures": 0.219148,
+      "absences": 0.025144
+    }
+  },
+  "t3_diagnostics_extra": {
+    "design_matrix": {
+      "n_columns": 8,
+      "rank": 8,
+      "full_rank": true,
+      "column_names": [
+        "Intercept",
+        "C(school)[T.MS]",
+        "C(sex)[T.M]",
+        "Medu",
+        "Fedu",
+        "studytime",
+        "failures",
+        "absences"
+      ]
+    },
+    "cooks_distance": {
+      "n": 649,
+      "threshold_4_over_n": 0.006163,
+      "n_above_threshold": 39,
+      "top": [
+        {
+          "row_index": 212,
+          "cooks_d": 0.035279
+        },
+        {
+          "row_index": 603,
+          "cooks_d": 0.033439
+        },
+        {
+          "row_index": 586,
+          "cooks_d": 0.033439
+        },
+        {
+          "row_index": 626,
+          "cooks_d": 0.032032
+        },
+        {
+          "row_index": 610,
+          "cooks_d": 0.028135
+        }
+      ]
+    }
+  },
+  "t4_model_m2": {
+    "ok": true,
+    "label": "M2_with_prior_grades_leakage_audit",
+    "formula": "G3 ~ C(school) + C(sex) + Medu + Fedu + studytime + failures + absences + G1 + G2",
+    "n_obs": 649,
+    "df_resid": 639,
+    "r_squared": 0.852129,
+    "adj_r_squared": 0.850046,
+    "f_statistic": 409.147847,
+    "f_pvalue": 1.7619358996448553e-258,
+    "aic": 2142.4191,
+    "bic": 2187.1735,
+    "coefficients": [
+      {
+        "term": "Intercept",
+        "coef": 0.253495,
+        "std_err": 0.311915,
+        "ci_low": -0.359007,
+        "ci_high": 0.865997,
+        "t": 0.8127,
+        "p_value": 0.41668958575264037
+      },
+      {
+        "term": "C(school)[T.MS]",
+        "coef": -0.206582,
+        "std_err": 0.113767,
+        "ci_low": -0.429985,
+        "ci_high": 0.01682,
+        "t": -1.8158,
+        "p_value": 0.06986443742659725
+      },
+      {
+        "term": "C(sex)[T.M]",
+        "coef": -0.195514,
+        "std_err": 0.104383,
+        "ci_low": -0.400489,
+        "ci_high": 0.009462,
+        "t": -1.873,
+        "p_value": 0.06151955954268366
+      },
+      {
+        "term": "Medu",
+        "coef": -0.045432,
+        "std_err": 0.058506,
+        "ci_low": -0.160319,
+        "ci_high": 0.069455,
+        "t": -0.7765,
+        "p_value": 0.43771804982152185
+      },
+      {
+        "term": "Fedu",
+        "coef": 0.018173,
+        "std_err": 0.059047,
+        "ci_low": -0.097777,
+        "ci_high": 0.134123,
+        "t": 0.3078,
+        "p_value": 0.7583582767014806
+      },
+      {
+        "term": "studytime",
+        "coef": 0.066578,
+        "std_err": 0.063235,
+        "ci_low": -0.057595,
+        "ci_high": 0.190752,
+        "t": 1.0529,
+        "p_value": 0.2927984374686372
+      },
+      {
+        "term": "failures",
+        "coef": -0.215625,
+        "std_err": 0.091122,
+        "ci_low": -0.394559,
+        "ci_high": -0.03669,
+        "t": -2.3663,
+        "p_value": 0.01826259086995195
+      },
+      {
+        "term": "absences",
+        "coef": 0.018608,
+        "std_err": 0.01108,
+        "ci_low": -0.003149,
+        "ci_high": 0.040366,
+        "t": 1.6795,
+        "p_value": 0.09355307725120117
+      },
+      {
+        "term": "G1",
+        "coef": 0.131549,
+        "std_err": 0.036506,
+        "ci_low": 0.059863,
+        "ci_high": 0.203236,
+        "t": 3.6035,
+        "p_value": 0.00033841562027575237
+      },
+      {
+        "term": "G2",
+        "coef": 0.884052,
+        "std_err": 0.033975,
+        "ci_low": 0.817337,
+        "ci_high": 0.950767,
+        "t": 26.021,
+        "p_value": 2.4434421495838693e-102
+      }
+    ],
+    "vif": [
+      {
+        "term": "Intercept",
+        "vif": 1.0
+      },
+      {
+        "term": "C(school)[T.MS]",
+        "vif": 1.2181
+      },
+      {
+        "term": "C(sex)[T.M]",
+        "vif": 1.0928
+      },
+      {
+        "term": "Medu",
+        "vif": 1.8242
+      },
+      {
+        "term": "Fedu",
+        "vif": 1.7465
+      },
+      {
+        "term": "studytime",
+        "vif": 1.1392
+      },
+      {
+        "term": "failures",
+        "vif": 1.2099
+      },
+      {
+        "term": "absences",
+        "vif": 1.0947
+      },
+      {
+        "term": "G1",
+        "vif": 4.1585
+      },
+      {
+        "term": "G2",
+        "vif": 4.0571
+      }
+    ],
+    "vif_max": 4.1585,
+    "breusch_pagan": {
+      "lm_stat": 570.271227,
+      "lm_pvalue": 5.006765809240606e-117,
+      "f_stat": 514.28792,
+      "f_pvalue": 6.564705519143128e-286
+    },
+    "jarque_bera": {
+      "stat": 9680.425474,
+      "pvalue": 0.0,
+      "skew": -2.8228,
+      "kurtosis": 21.0585
+    }
+  },
+  "t4_adj_r2_delta": 0.587161,
+  "t4b_prediction": {
+    "holdout": {
+      "n_train": 519,
+      "n_test": 130,
+      "mae": 2.0938,
+      "rmse": 2.8262,
+      "r2": 0.1809
+    },
+    "cv": {
+      "folds": 5,
+      "mae_mean": 2.0392,
+      "rmse_mean": 2.7788,
+      "r2_mean": 0.2377,
+      "fold_detail": [
+        {
+          "mae": 2.0938,
+          "rmse": 2.8262,
+          "r2": 0.1809
+        },
+        {
+          "mae": 2.0167,
+          "rmse": 2.7493,
+          "r2": 0.3114
+        },
+        {
+          "mae": 2.2005,
+          "rmse": 3.2893,
+          "r2": 0.2406
+        },
+        {
+          "mae": 2.0682,
+          "rmse": 2.7205,
+          "r2": 0.2611
+        },
+        {
+          "mae": 1.8166,
+          "rmse": 2.3088,
+          "r2": 0.1945
+        }
+      ]
+    },
+    "permutation_importance": {
+      "n_repeats": 30,
+      "scoring": "r2",
+      "table": [
+        {
+          "feature": "failures",
+          "importance_mean": 0.209974,
+          "importance_std": 0.05658
+        },
+        {
+          "feature": "C(school)[T.MS]",
+          "importance_mean": 0.048285,
+          "importance_std": 0.036945
+        },
+        {
+          "feature": "studytime",
+          "importance_mean": 0.045904,
+          "importance_std": 0.024721
+        },
+        {
+          "feature": "C(sex)[T.M]",
+          "importance_mean": 0.033721,
+          "importance_std": 0.017686
+        },
+        {
+          "feature": "Medu",
+          "importance_mean": 0.014157,
+          "importance_std": 0.015581
+        },
+        {
+          "feature": "Fedu",
+          "importance_mean": 0.005167,
+          "importance_std": 0.009864
+        },
+        {
+          "feature": "absences",
+          "importance_mean": 0.003799,
+          "importance_std": 0.011749
+        },
+        {
+          "feature": "Intercept",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        }
+      ]
+    }
+  },
+  "not_applicable": [
+    {
+      "method": "survival_analysis",
+      "reason": "无生存时间/删失字段（横断面成绩数据）"
+    },
+    {
+      "method": "longitudinal_mixed_models",
+      "reason": "单时点横断面设计，无重复测量"
+    },
+    {
+      "method": "causal_inference",
+      "reason": "观察性数据且无识别策略；全部结论限关联表述"
+    },
+    {
+      "method": "survey_weighted_estimation",
+      "reason": "非复杂抽样设计（无权重/分层/聚类字段）"
+    },
+    {
+      "method": "ordinal_logistic_as_primary",
+      "reason": "G3 有界离散但近似连续，OLS 为协议主模型；序数模型仅可作为课后扩展"
+    }
+  ],
+  "reading_note": "M2 含 G1/G2：调整 R² 大幅上升但任务定义改变为期末解释/含泄漏预测；回答研究问题 RQ1 的只有 M1。所有结论为关联，不构成因果。",
+  "figures": {
+    "m1_residuals": "/Users/leo/repos/milulab/dsh-research-lab/examples/education-demo/outputs/figures/m1_residuals.png",
+    "m2_residuals": "/Users/leo/repos/milulab/dsh-research-lab/examples/education-demo/outputs/figures/m2_residuals.png"
+  }
+}

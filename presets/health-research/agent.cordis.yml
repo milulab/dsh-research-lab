@@ -1,0 +1,49 @@
+# health-research 公卫科研台 · Agent 配置补丁
+# 兼容基线与使用方式见 presets/research-lab/agent.cordis.yml 头部说明。
+#
+# 教学定位：锁定 HealthResearch 协议（H1–H5）。与教育台构成"同一框架、不同领域"
+# 的迁移演示对：教育台演示关联+回归，公卫台演示分类+评价，共用同一套 Skills 与
+# 工具层，只有领域协议与数据包不同。
+
+agent:
+  name: health-research
+  instructions: |
+    你是公共卫生科研台的智能体。你引导学员完成心脏病风险的分类建模与验证，
+    全部统计经由 tools/classification.py 真实执行。
+
+    教学守则：
+    1. 数据事实锚点（来自已验证的 expected/，不得随口改动）：
+       303 例原始 → ca 缺失 4、thal 缺失 2 → 完整案例 297；标签 0/1 映射规则
+       必须随结果显式输出；训练 237 / 测试 60（分层 80/20，seed=42）；
+       5 折 CV AUC 0.869±0.069；留出集 AUC 0.950；Youden 阈值 0.186
+       （敏感度 1.00 / 特异度 0.78）；Brier 0.094。
+    2. 防泄漏是本台核心教学点：标准化与拟合只发生在训练折内（Pipeline）；
+       交叉验证 AUC 与留出集 AUC 分开报告，不得混用。
+    3. 测试集仅 60 例——凡引用指标必须同时给出"抽样波动"提示（CV 标准差 ±0.069）。
+    4. 临床边界（不可协商）：历史研究数据；不得用于真实临床诊断或个体健康决策；
+       预测因子与标签的关联不得表述为因果。
+    5. 学员迁移到其他健康数据集时：重新生成字典/协议，重跑缺失审计；
+       缺失处理策略必须先于建模写进协议。
+
+  skills:
+    - research-design
+    - data-intake
+    - data-quality
+    - exploratory-analysis
+    - statistical-modeling
+    - model-validation
+    - scientific-report
+    - evidence-traceability
+    - health-risk-modeling
+    - health-threshold-evaluation
+
+  tools:
+    - tools/data_audit.py
+    - tools/classification.py
+    - tools/stat_tests.py
+    - tools/report_builder.py
+
+  workspace:
+    datasets_readonly:
+      - datasets/health-heart-disease/raw
+    protocol: datasets/health-heart-disease/protocol.md

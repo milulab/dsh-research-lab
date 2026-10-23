@@ -1,0 +1,26 @@
+name: public-health
+label: 公共卫生科研
+version: 1.0.0
+description: 健康风险分类建模与验证方法域。以 UCI Heart Disease（Cleveland 303 例真实历史病例）为基准工作数据。
+audience: 高校教师、公卫与流行病学研究者
+research_questions:
+  - RQ1 常规检查特征能否构建可复核的心脏病阳性分类模型
+  - RQ2 阈值移动下敏感度/特异度的权衡与校准表现
+methods:
+  primary: [logistic_regression_pipeline, stratified_80_20_seed42, five_fold_stratified_cv]
+  evaluation: [roc_auc, confusion_matrix, sensitivity_specificity, youden_threshold,
+               threshold_sweep, brier_score, calibration_curve]
+data:
+  benchmark: datasets/health-heart-disease/
+  protocol: datasets/health-heart-disease/protocol.md
+  dictionary: datasets/health-heart-disease/metadata/data_dictionary.csv
+  license: CC BY 4.0
+boundaries:
+  - 历史研究数据：禁止用于真实临床诊断或个体健康决策
+  - 预测因子关联不得表述为因果
+  - 测试集仅 60 例，指标必须带不确定度陈述
+skills:
+  - health-risk-modeling
+  - health-threshold-evaluation
+knowledge:
+  - knowledge/methodology.md

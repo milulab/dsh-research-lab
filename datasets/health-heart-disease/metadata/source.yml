@@ -1,0 +1,35 @@
+name: UCI Heart Disease
+uci_id: 45
+url: https://archive.ics.uci.edu/dataset/45/heart+disease
+publisher: UCI Machine Learning Repository
+authors:
+  - Hungarian Institute of Cardiology (Hungarian subset, Andras Janosi M.D.)
+  - V.A. Medical Center Long Beach (William Steinbrunn M.D.)
+  - University Hospital Zurich (Matthias Pfisterer M.D.)
+  - Cleveland Clinic Foundation (Robert Detrano M.D., Ph.D.)
+  - David W. Aha (dataset donor)
+year: "1989 (Cleveland data)"
+access_date: "2026-10-23"
+license: CC BY 4.0
+version: retrieved 2026-10-23
+citation: |
+  Detrano, R., Janosi, A., Steinbrunn, W., Pfisterer, M., Schmid, J.,
+  Sandhu, S., Guppy, K., Lee, S., & Froelicher, V. (1989). International
+  application of a new probability algorithm for the diagnosis of
+  coronary artery disease. American Journal of Cardiology, 64, 304-310.
+  Distributed by UCI Machine Learning Repository (Heart Disease Data Set).
+files:
+  - path: raw/processed.cleveland.data
+    description: processed Cleveland subset, 303 records x 14 fields, comma-separated, no header, missing values encoded as "?"
+    sha256: a74b7efa387bc9d108d7d0115d831fe9b414b29ae7124f331b622b4efa0427c8
+  - path: raw/heart-disease.names
+    description: Official attribute documentation from the UCI distribution
+    sha256: ec7ed5aa4ed8321097808f47b836301c2a0c36f3bb09c40b8b43b622363e6b61
+notes:
+  - Primary analysis uses only the processed Cleveland file (303 records), the
+    convention of the historical literature.
+  - The original target `num` is 0-4 (presence of vessels with >50% diameter
+    narrowing). Any binary conversion MUST record the mapping rule explicitly;
+    the standard teaching rule used here is 0 -> 0, 1-4 -> 1.
+  - Historical research data. Predictions from this dataset MUST NOT be used
+    for real clinical diagnosis or individual health decisions.

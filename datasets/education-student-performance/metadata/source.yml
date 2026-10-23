@@ -1,0 +1,38 @@
+name: UCI Student Performance
+uci_id: 320
+url: https://archive.ics.uci.edu/dataset/320/student+performance
+publisher: UCI Machine Learning Repository
+authors:
+  - Paulo Cortez (University of Minho)
+  - Alice Silva
+year: "2008"
+access_date: "2026-10-23"
+license: CC BY 4.0
+version: retrieved 2026-10-23 (upstream has no versioned releases)
+citation: |
+  P. Cortez and A. Silva. Using Data Mining to Predict Secondary School
+  Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of
+  5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12,
+  EUROSIS, 2008.
+files:
+  - path: raw/student-mat.csv
+    description: Mathematics course, 395 students x 33 attributes, semicolon-separated
+    sha256: e47f9ee225e1ee6e69b7564e6dac7123e80b8486677fe111f351964cef5dec80
+  - path: raw/student-por.csv
+    description: Portuguese language course, 649 students x 33 attributes, semicolon-separated
+    sha256: a7594a11d7771c0efe1a740824e0e833da9c4cad07c39a9766a874575563fb3f
+  - path: raw/student.txt
+    description: Official attribute definitions from the UCI distribution
+    sha256: f8d3e734e237071312790ca667330c66d75e706317f8d5e2125c479d70e962c1
+notes:
+  - This is secondary-school (high school) student data, two schools in Portugal.
+    Do not describe it as university student data; the teaching audience is
+    university faculty, the research topic is education research methodology.
+  - The upstream note states 382 students appear in both course files. Within-file
+    duplicate handling is audited in protocol T1; cross-file merging as independent
+    samples is prohibited by the primary analysis plan.
+  - In raw/student-por.csv the grade columns G1/G2 carry quote characters
+    ("0", "11"). Standard CSV parsers silently strip the quotes and infer
+    integers, so the anomaly disappears at parse time. The data-intake skill
+    therefore requires inspecting raw bytes / declaring expected dtypes before
+    analysis - an intentional teaching point on silent type coercion.

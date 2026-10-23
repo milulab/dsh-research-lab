@@ -1,0 +1,14 @@
+{
+  "package": "dsh-research-lab-0.2.0-darwin-arm64.tar.gz",
+  "files": 70,
+  "sha256": {
+    "dsh-research-lab-0.2.0-darwin-arm64.tar.gz": "096453fff62ed7242487693dc00ecf0accbd2925529d4cd19b26043fff7f2604",
+    "dsh-research-lab-0.2.0-checksums.sha256": "7d4c5179f4ea38d30f19a164cf1fa276d1be5996aab09e6086464ec318fc654f"
+  },
+  "smoke": [
+    "unzip/untar → pip install -r requirements.txt",
+    "python examples/education-demo/run_t1_t5.py",
+    "python examples/health-demo/run_h1_h5.py",
+    "python scripts/verify.py"
+  ]
+}

@@ -1,0 +1,22 @@
+# 新学科领域定义模板 — 复制本目录后逐项替换 <...> 占位符
+name: <domain-slug>            # 小写连字符，如 sports-science
+label: <中文名称>               # 如 体育科研
+version: 0.1.0
+description: <一句话：这个域研究什么、用什么数据>
+audience: <适用人群>
+research_questions:
+  - RQ1 <可检验的研究问题>
+methods:                        # 从本仓库 tools/ 已支持的方法中选
+  primary: [spearman, OLS_with_HC3_sensitivity]   # 或 logistic 系
+data:
+  benchmark: datasets/<your-dataset>/
+  protocol: datasets/<your-dataset>/protocol.md
+  dictionary: datasets/<your-dataset>/metadata/data_dictionary.csv
+  license: <数据许可，如 CC BY 4.0 / 仅引用不分发>
+boundaries:                     # 措辞与用途边界，报告会引用
+  - <如：观察性数据，只谈关联>
+  - <如：不得用于个体决策>
+skills:
+  - <your-domain-analysis>      # 见同目录 SKILL.md 模板
+knowledge:
+  - knowledge/methodology.md

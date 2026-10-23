@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "method": "statsmodels GLM(Binomial) IRLS + rank-based AUC (independent of sklearn metrics)",
+  "n_train": 237,
+  "n_test": 60,
+  "test_auc_rank_method": 0.948661,
+  "cv_note": "CV 交叉验证依赖 sklearn 折切分实现，参考口径只锁定留出集 AUC 与系数",
+  "coefficients_raw_space": {
+    "const": -9.912873,
+    "age": -0.006463,
+    "trestbps": 0.025863,
+    "chol": 0.004558,
+    "thalach": -0.009139,
+    "oldpeak": 0.387112,
+    "ca": 1.136463,
+    "sex": 1.100153,
+    "cp": 0.553098,
+    "fbs": -1.001282,
+    "restecg": 0.323395,
+    "exang": 0.807318,
+    "slope": 0.619813,
+    "thal": 0.395667
+  }
+}

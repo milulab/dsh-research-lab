@@ -1,0 +1,40 @@
+[project]
+name = "dsh-research-lab"
+version = "0.2.0"
+description = "DSH Research Lab — 开源高校科研智能体框架（DeepSeek Harness 模板）"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "MiluLab contributors" }]
+keywords = ["dsh", "agent", "research", "education", "public-health", "teaching"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Education",
+]
+dependencies = [
+  "pandas>=2.2",
+  "numpy>=1.26",
+  "scipy>=1.12",
+  "statsmodels>=0.14",
+  "scikit-learn>=1.4",
+  "matplotlib>=3.8",
+  "PyYAML>=6.0",
+]
+
+[project.urls]
+Homepage = "https://milulab.com/project/dsh-research-lab"
+Repository = "https://github.com/milulab/dsh-research-lab"
+Issues = "https://github.com/milulab/dsh-research-lab/issues"
+
+[project.scripts]
+research-lab-verify = "scripts.verify:main"
+
+[tool.setuptools]
+packages = ["tools"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

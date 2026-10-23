@@ -32,3 +32,14 @@
   → M2 泄漏对照（含 G1/G2 后调整 R²=0.850，任务定义变化讲解）
   → 报告/图表/日志交付
 - 通用 Skills 八件 + 教育领域 Skills；templates/new-domain 定制模板
+
+### 教学配套（v0.2.0 同日追加）
+
+- `scripts/make_teaching_figures.py`：9 张教学可视化（G3 分布、学习时间箱线、
+  M1 森林图、泄漏对照柱、Spearman 热图；标签/年龄概览、阈值扫描、双阈值混淆、
+  OR 森林图），全部由真实数据与 expected 锚点生成，CJK 字体跨平台回退
+- `scripts/dashboard.py`：本地工作台（纯标准库 Web UI，一键运行两管线与总验收，
+  产物沙箱浏览防路径穿越；127.0.0.1 绑定）
+- `docs/teaching-prompts.md`：教学指令卡 p1–p9（对话逐条粘贴版）
+- GitHub Release v0.2.0 附教学资源包（12 技能 + 两数据包 + 图 + 指令卡）
+  与 SHA256SUMS；教程页 milulab.com/course/ai-data-analyse/dsh.html

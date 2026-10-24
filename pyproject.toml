@@ -1,6 +1,6 @@
 [project]
 name = "dsh-research-lab"
-version = "0.2.0"
+version = "0.3.0"
 description = "DSH Research Lab — 开源高校科研智能体框架（DeepSeek Harness 模板）"
 readme = "README.md"
 requires-python = ">=3.11"

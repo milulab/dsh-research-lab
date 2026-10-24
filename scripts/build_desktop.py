@@ -226,6 +226,11 @@ def assemble_app(pyinstaller_dist: Path, node_bin: Path, dsh_dir: Path) -> Path:
         "(Node.js is packaged as a runtime; full license text available at the URL above)\n",
         encoding="utf-8")
 
+    # 应用图标（assets/app-icon.icns，由 scripts/make_app_icon.py 生成）
+    icon_src = REPO / "assets" / "app-icon.icns"
+    if icon_src.is_file():
+        shutil.copy2(icon_src, resources / "app-icon.icns")
+
     manifest = {
         "name": "DSH Research Lab Desktop",
         "version": APP_VERSION,
@@ -257,6 +262,7 @@ INFO_PLIST = """<?xml version="1.0" encoding="UTF-8"?>
   <key>CFBundleVersion</key><string>{commit}</string>
   <key>CFBundleShortVersionString</key><string>{version}</string>
   <key>CFBundleExecutable</key><string>{exe}</string>
+  <key>CFBundleIconFile</key><string>app-icon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
   <key>LSMinimumSystemVersion</key><string>11.0</string>

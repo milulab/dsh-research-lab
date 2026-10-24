@@ -32,6 +32,9 @@
   完整构建桌面端（含冒烟），.dmg/.zip 随源码包一并附到 GitHub Release
   并计入 checksums；README 按发布形态重构（下载入口前置、分层快速开始、
   数据锚点、声明收尾）；verify.yml 过时注释更正（31 → 49）；
+- **应用图标**：`scripts/make_app_icon.py` 生成品牌渐变 + 锥形瓶图标
+  （`assets/app-icon.icns`），构建时注入 .app（CFBundleIconFile）；
+  desktop-build CI 测试 job 补装 pytest；
 - 产物**未签名未公证**（无开发者证书，主可执行 ad-hoc 签名），分发文档
   明确首启放行步骤；当前仅验证 macOS 11+ Apple Silicon。
 

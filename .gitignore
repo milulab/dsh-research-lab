@@ -19,6 +19,7 @@ examples/*/outputs/
 .dsh/
 *.tgz
 
-# 桌面端构建产物（本地构建/验证用，不入库）
+# 构建产物（本地构建/验证用，不入库——曾因只忽略 dist/desktop 导致
+# dist/ 根下的分发包被误提交，进而混入 CI 产物上传，2026-10-24 修复）
 build/
-dist/desktop/
+dist/

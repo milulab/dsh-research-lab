@@ -40,7 +40,7 @@ jobs:
       - name: Health pipeline (H1–H5)
         run: python examples/health-demo/run_h1_h5.py
 
-      - name: Acceptance suite (31 checks)
+      - name: Acceptance suite (49 checks)
         run: python scripts/verify.py
 
       - name: Upload run artifacts

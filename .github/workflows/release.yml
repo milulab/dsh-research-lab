@@ -50,8 +50,40 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  # 桌面端（macOS arm64）：内置真实 DSH + Node 22 + 科研栈，开箱可用。
+  # 构建含干净环境冒烟（装配 → 双管线 → 真实启动 DSH → token 断言），
+  # 失败即中止发布；产物未签名未公证，分发说明见 docs/desktop.md。
+  desktop:
+    name: desktop · macos arm64
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-desktop.txt
+
+      - name: Build desktop app + smoke (with bundled DSH)
+        run: python scripts/build_desktop.py --verify
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-darwin-arm64
+          path: |
+            dist/desktop/dsh-research-lab-*.dmg
+            dist/desktop/dsh-research-lab-*.zip
+          if-no-files-found: error
+          retention-days: 30
+
   publish:
-    needs: [package]
+    needs: [package, desktop]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4

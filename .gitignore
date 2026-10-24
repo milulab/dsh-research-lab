@@ -18,3 +18,7 @@ examples/*/outputs/
 # DSH 本地运行时
 .dsh/
 *.tgz
+
+# 桌面端构建产物（本地构建/验证用，不入库）
+build/
+dist/desktop/

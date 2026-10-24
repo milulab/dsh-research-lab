@@ -1,0 +1,3 @@
+# 桌面端构建/运行依赖（不影响核心管线的 requirements.txt）
+pyinstaller>=6.10
+pywebview>=5.4

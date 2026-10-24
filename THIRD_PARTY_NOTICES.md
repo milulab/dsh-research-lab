@@ -29,5 +29,20 @@
 
 Python 依赖（pandas / numpy / scipy / statsmodels / scikit-learn / matplotlib / PyYAML）
 各自遵循其上游许可证（均为 BSD/MIT 系宽松许可），清单与版本锁定见
-`requirements.txt` 与 `pyproject.toml`。DSH（DeepSeek Harness）为外部运行时，
-按其自身许可证条款安装使用，本仓库不对其进行再分发。
+`requirements.txt` 与 `pyproject.toml`。
+
+## 4. 桌面端随包分发的第三方组件
+
+桌面版（`scripts/build_desktop.py` 产出的 .app/dmg/zip）随包再分发以下
+组件；两者均使用宽松许可，允许再分发，原始声明随包携带：
+
+| 组件 | 版本 | 许可 | 声明位置 |
+|---|---|---|---|
+| DeepSeek Harness (DSH) | 0.2.1-rc.2（npm `@deepseek-ai/dsh`，整包未修改） | MIT（Copyright (c) 2026 DeepSeek） | 应用内 `Resources/licenses/DSH-LICENSE` |
+| Node.js | 22.22.0（nodejs.org 官方二进制） | MIT（含第三方声明，见官方 LICENSE） | 应用内 `Resources/licenses/NODE-LICENSE.txt` |
+
+分发说明：
+- DSH 以 npm 官方源原样打包（未修改其代码），构建记录其版本与来源；
+  `build/desktop/verify-report.json` 留存冒烟验证证据；
+- 桌面端产物**未签名未公证**（无 Apple 开发者证书，仅 ad-hoc 签名）；
+- 源码形态（本仓库）不包含 DSH 与 Node 二进制，仅在构建时从官方渠道获取。

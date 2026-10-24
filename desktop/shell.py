@@ -41,6 +41,6 @@ def run_window(url: str) -> int:
                           "hint": "未安装 pywebview，请在浏览器打开以上地址"}), flush=True)
         return 2
     webview.create_window("DSH Research Lab", url, width=1280, height=860,
-                          min_size=(980, 640))
-    webview.start(js_api=LabApi())
+                          min_size=(980, 640), js_api=LabApi())
+    webview.start()
     return 0

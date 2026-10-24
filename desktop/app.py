@@ -37,6 +37,32 @@ def start_server(home: Path, port: int):
     return make_server(home=home, port=port)
 
 
+def _probe_workbench() -> dict:
+    """真实起一个工作台 HTTP 服务并请求 /api/health。
+
+    回归：make_server 只绑定不循环（serve_forever 由调用方负责）。窗口流程
+    曾因无人调用 serve_forever 而整窗白屏，且不开窗口的冒烟此前测不到。
+    """
+    import threading
+
+    from scripts.server import make_server
+
+    server = make_server(home=paths.app_home(), port=0)
+    thread = threading.Thread(target=server.serve_forever,
+                              kwargs={"poll_interval": 0.2}, daemon=True)
+    thread.start()
+    try:
+        url = f"http://127.0.0.1:{server.server_address[1]}/api/health"
+        with urllib.request.urlopen(url, timeout=10) as resp:
+            ok = resp.status == 200
+    except (urllib.error.URLError, OSError):
+        ok = False
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
+    return {"ok": ok}
+
+
 def run_smoke(home: Path, with_dsh: bool) -> int:
     """无界面冒烟验证；打印 JSON 结果，返回退出码。"""
     report: dict = {"ok": True, "steps": {}}
@@ -58,6 +84,13 @@ def run_smoke(home: Path, with_dsh: bool) -> int:
         report["steps"]["env"] = {"ok": True, **_env_fingerprint()}
     except Exception as exc:  # noqa: BLE001
         return fail("env", repr(exc))
+
+    try:
+        report["steps"]["workbench-http"] = _probe_workbench()
+    except Exception as exc:  # noqa: BLE001
+        return fail("workbench-http", repr(exc))
+    if not report["steps"]["workbench-http"]["ok"]:
+        return fail("workbench-http", "/api/health 未达 200")
 
     lab = paths.lab_dir(home)
     t0 = time.time()
@@ -189,12 +222,19 @@ def main(argv: list[str] | None = None) -> int:
 
     result = bootstrap.ensure_home(home=home)
     server = start_server(home, args.port)
+    # make_server 只绑定不循环（dashboard CLI 自行 serve_forever 阻塞主线程）；
+    # 窗口流程主线程被 webview 事件循环占用，服务必须放后台线程。
+    import threading
+    serve_thread = threading.Thread(target=server.serve_forever,
+                                    kwargs={"poll_interval": 0.2}, daemon=True)
+    serve_thread.start()
     url = f"http://127.0.0.1:{server.server_address[1]}"
     print(json.dumps({"ok": True, "serving": url, "home": str(home),
                       "bootstrap": result}, ensure_ascii=False), flush=True)
     from . import shell
     code = shell.run_window(url)
     server.shutdown()
+    serve_thread.join(timeout=5)
     return code
 
 

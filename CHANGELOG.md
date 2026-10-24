@@ -35,6 +35,11 @@
 - **应用图标**：`scripts/make_app_icon.py` 生成品牌渐变 + 锥形瓶图标
   （`assets/app-icon.icns`），构建时注入 .app（CFBundleIconFile）；
   desktop-build CI 测试 job 补装 pytest；
+- **窗口流程运行时修复**（真实启动验证发现）：pywebview `js_api` 归位到
+  `create_window()`（此前误传 `start(js_api=…)`，打包形态 TypeError、窗口
+  无法建立）；工作台 HTTP 服务改由后台线程 `serve_forever`（此前只绑定
+  不循环，主窗口整窗不可达）；冒烟新增 `workbench-http` 步骤（真实起服务
+  断言 `/api/health` 200），服务级缺陷不再依赖开窗才能发现；
 - 产物**未签名未公证**（无开发者证书，主可执行 ad-hoc 签名），分发文档
   明确首启放行步骤；当前仅验证 macOS 11+ Apple Silicon。
 

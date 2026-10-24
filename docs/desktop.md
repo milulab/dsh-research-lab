@@ -64,7 +64,8 @@ python scripts/build_desktop.py --verify \
 
 构建步骤：PyInstaller onedir（科研栈 + 桌面层，windowed 产出标准 .app 布局）
 → 主可执行 ad-hoc 签名 → 装配 .app（官方 Frameworks 布局 + lab 模板 +
-node + dsh + python shim + manifest + licenses）→ **干净环境冒烟**
+node + dsh + python shim + manifest + licenses + 应用图标
+`assets/app-icon.icns`，由 `scripts/make_app_icon.py` 生成）→ **干净环境冒烟**
 （`PATH=/usr/bin:/bin:/usr/sbin:/sbin` 且 **HOME 指向临时目录**：
 装配 → 教育管线（进程内）→ 双管线（DSH 子进程同款环境）→ 真实启动
 DSH web → token 访问 303/401 断言 → 停止）→ dmg/zip → checksums。

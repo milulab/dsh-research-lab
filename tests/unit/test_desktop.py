@@ -163,3 +163,28 @@ def test_paths_dev_mode_repo_layout():
         assert (dsh_dir / "lib" / "bin.js").is_file()
     shim = paths.python_shim_dir()
     assert shim and (shim / "python").exists()
+
+
+# -- 窗口壳（回归：js_api 属于 create_window，不是 start） ----------------------
+def test_shell_window_passes_js_api_to_create_window(monkeypatch):
+    """回归：pywebview 的 js_api 是 create_window() 参数；传给 start() 会
+    TypeError 且仅在打包形态暴露（冒烟不开窗口，此前漏测）。"""
+    from desktop import shell
+
+    calls = {}
+
+    class FakeWebview:
+        @staticmethod
+        def create_window(title, url, **kw):
+            calls["title"], calls["url"], calls["kw"] = title, url, kw
+
+        @staticmethod
+        def start(*args, **kw):
+            calls["start_args"] = (args, kw)
+
+    monkeypatch.setitem(sys.modules, "webview", FakeWebview)
+    rc = shell.run_window("http://127.0.0.1:8123/")
+    assert rc == 0
+    assert calls["url"] == "http://127.0.0.1:8123/"
+    assert isinstance(calls["kw"].get("js_api"), shell.LabApi)
+    assert calls["start_args"] == ((), {})

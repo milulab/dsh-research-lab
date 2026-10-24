@@ -9,7 +9,7 @@
 | 平台 | 下载 | 说明 |
 |---|---|---|
 | **macOS 桌面端（推荐）** | [dsh-research-lab-\*-darwin-arm64.dmg](https://github.com/milulab/dsh-research-lab/releases/latest) | 内置真实 DSH + Node 22 + 全部科研栈，开箱即用 |
-| 源码包（三平台） | [dsh-research-lab-\*.tar.gz / .zip](https://github.com/milulab/dsh-research-lab/releases/latest) | 自带 Python 环境的开发者接入 |
+| 源码包（三平台） | [dsh-research-lab-\*.tar.gz / .zip](https://github.com/milulab/dsh-research-lab/releases/latest) | 框架模板包（需自配 Python 3.11+），开发者接入 |
 | 教学资源包 | [teaching-pack](https://github.com/milulab/dsh-research-lab/releases/latest) | 12 技能 + 双数据包 + 9 张教学图 + 指令卡 |
 
 [![verify](https://github.com/milulab/dsh-research-lab/actions/workflows/verify.yml/badge.svg)](./.github/workflows/verify.yml)

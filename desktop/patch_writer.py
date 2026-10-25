@@ -65,18 +65,45 @@ def build_patch(cfg: dict) -> list[dict]:
     return entries
 
 
+def _lab_agent_entry(lab: Path, preset: str) -> dict | None:
+    """读取工作台 preset 的 agent.cordis.yml，转成 `- id: agent` patch 条目。
+
+    DSH 0.2.1-rc.2 不扫描 .agent-presets 目录布局（实测 dump-config 验证），
+    preset 的正确接入方式是 profile patch 中的 agent 插件配置条目（同
+    presets/*/agent.cordis.yml 头部"方式 b"）。
+    """
+    import yaml as _yaml
+
+    src = Path(lab) / "presets" / preset / "agent.cordis.yml"
+    if not src.is_file():
+        return None
+    data = _yaml.safe_load(src.read_text(encoding="utf-8")) or {}
+    agent = data.get("agent")
+    if not isinstance(agent, dict) or not agent.get("instructions"):
+        return None
+    return {"id": "agent", "config": agent}
+
+
 def sync_patch(home: Path, app_config: AppConfig) -> Path:
     """按当前应用配置同步 web profile patch（<home>/dsh-home/profiles/web/）。
 
-    已配置 key → 写凭据引用 + 默认模型；未配置 → 写空数组（DSH 正常启动，
-    会话内调用模型时按 MISSING_CREDENTIAL 提示）。路径与 DSH 首启生成的
-    模板一致，首启前写入即生效。
+    组成：凭据引用 + 默认模型（未配置 key 时省略凭据条目）+ 所选科研台的
+    agent 配置段（preset ∈ research-lab / edu-research / health-research，
+    可设为 "none" 关闭）。路径与 DSH 首启生成的模板一致，首启前写入即生效。
     """
     cfg = app_config.load()
+    entries: list[dict] = []
     if cfg.get("api_key"):
-        payload = yaml.safe_dump(build_patch(cfg), allow_unicode=True, sort_keys=False)
-    else:
-        payload = "[]\n"
+        entries.extend(build_patch(cfg))
+    lab = (Path(home) / "lab") if (Path(home) / "lab" / "presets").is_dir() \
+        else Path(__file__).resolve().parents[1]
+    preset = str(cfg.get("preset") or "edu-research")
+    if preset != "none":
+        entry = _lab_agent_entry(lab, preset)
+        if entry is not None:
+            entries.append(entry)
+    payload = yaml.safe_dump(entries, allow_unicode=True, sort_keys=False) \
+        if entries else "[]\n"
     target = Path(home) / "dsh-home" / "profiles" / "web" / "cordis.patch.yml"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(payload, encoding="utf-8")

@@ -24,6 +24,7 @@ DEFAULTS: dict = {
     "base_url": "",
     "model": "deepseek-chat",
     "reasoning_effort": "high",
+    "preset": "edu-research",
 }
 
 API_KEY_ENV = "DSHRL_MODEL_API_KEY"
@@ -64,6 +65,7 @@ class AppConfig:
             "base_url": d["base_url"],
             "model": d["model"],
             "reasoning_effort": d["reasoning_effort"],
+            "preset": d.get("preset", "edu-research"),
             "has_key": bool(d["api_key"]),
         }
 

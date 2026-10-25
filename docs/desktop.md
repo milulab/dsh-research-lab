@@ -32,10 +32,27 @@ DSH Research Lab 桌面版：一个开箱可用的 macOS 应用，**随包内置
      Base URL 与 key；
    - Key 只保存在本机应用目录（`config.json`，权限 0600），**绝不打包进
      应用、不写入日志、不上传**；DSH 通过 `apiKeyEnv` 环境变量引用。
-4. 点「▶ 启动 DSH」→「打开 DSH 窗口」：在真实 DSH Web UI 里用
-   edu-research / health-research preset 与 12 个技能驱动智能体；
+4. 在「⚙ 模型设置」选择**科研台 Preset**（edu-research / health-research /
+   research-lab / none），保存后点「▶ 启动 DSH」→「打开 DSH 窗口」：
+   在真实 DSH Web UI 里以所选科研台的智能体守则（经 profile patch 注入，
+   重启 DSH 生效）与 12 个技能驱动智能体；
    会话内 DSH 的 shell 工具调用 `python` 命中的是**随包执行桥**
    （带全部科研依赖），可直接运行 `examples/*` 管线脚本与 `tools/`。
+
+## 科研台 Preset 的接入机制
+
+DSH 0.2.1-rc.2 实测（`--dump-config` 校准）：
+
+- `~/.agent-presets/` 目录布局**不被扫描**（仅内置
+  preset-ptc / minimal / cordis / standard）；
+- 科研台守则的正确接入方式是 profile patch（`dsh-home/profiles/web/
+  cordis.patch.yml`）中的 `- id: agent` 配置条目，内容即
+  `presets/<科研台>/agent.cordis.yml` 的 `agent` 段（同该文件头部
+  "方式 b"）；
+- 工作台设置保存所选 preset 后由 `desktop/patch_writer.sync_patch`
+  重写 patch，**重启 DSH 生效**；设为 `none` 时不注入（通用助手）。
+- 12 个技能装配在 `dsh-home/agents/skills/`（`$DSH_AGENTS_HOME/skills`，
+  skill-filesystem 的共享 agents 根扫描位置）。
 
 ## 数据存放位置
 
@@ -43,7 +60,7 @@ DSH Research Lab 桌面版：一个开箱可用的 macOS 应用，**随包内置
 |---|---|
 | 应用主目录 | `~/Library/Application Support/DSHResearchLab/` |
 | 工作台（管线在此产出） | `…/DSHResearchLab/lab/` |
-| DSH 主目录（skills/presets/会话） | `…/DSHResearchLab/dsh-home/` |
+| DSH 主目录（agents/skills、profiles、会话） | `…/DSHResearchLab/dsh-home/` |
 | 模型配置 | `…/DSHResearchLab/config.json`（0600） |
 | 运行日志 | `…/DSHResearchLab/logs/` |
 

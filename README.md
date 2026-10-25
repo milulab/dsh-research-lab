@@ -14,7 +14,7 @@
 
 [![verify](https://github.com/milulab/dsh-research-lab/actions/workflows/verify.yml/badge.svg)](./.github/workflows/verify.yml)
 [![desktop-build](https://github.com/milulab/dsh-research-lab/actions/workflows/desktop-build.yml/badge.svg)](./.github/workflows/desktop-build.yml)
-License: MIT ｜ 当前稳定版 **v0.3.0** ｜ DSH 兼容基线 0.2.1-rc.2
+License: MIT ｜ 当前稳定版 **v0.3.1** ｜ DSH 兼容基线 0.2.1-rc.2
 
 ## 设计定位
 
@@ -36,7 +36,10 @@ License: MIT ｜ 当前稳定版 **v0.3.0** ｜ DSH 兼容基线 0.2.1-rc.2
 
 ## 版本
 
-- **v0.3.0（当前）**：macOS 桌面端——内置真实 DSH + Node 22 + 科研栈，
+- **v0.3.1（当前）**：桌面端 DSH 集成校准——技能装配位置修复（v0.3.0 中
+  技能未被 DSH 扫描）、科研台 preset 经 profile patch 实际注入会话、
+  随包许可补全；全量实机验证报告 docs/desktop-validation.md
+- v0.3.0：macOS 桌面端——内置真实 DSH + Node 22 + 科研栈，
   干净环境冒烟随构建执行；随包 Python 执行桥让 DSH 会话内 `python examples/…`
   直接命中随包依赖；产物未签名未公证
 - v0.2.0：HealthResearch 领域 + 全谱统计方法补齐（49 项对账）+ 教学资源包
@@ -53,9 +56,10 @@ License: MIT ｜ 当前稳定版 **v0.3.0** ｜ DSH 兼容基线 0.2.1-rc.2
 2. 首次打开（产物**未公证**）：在「应用程序」中右键 → 「打开」→ 再点「打开」；
 3. 点「⚙ 模型设置」填入模型 API Key（DeepSeek 官方或任意 OpenAI 兼容端点）——
    Key 仅存本机（0600），不打包、不写日志、不上传；
-4. 点「▶ 运行」跑通双管线（真实数据约 10 秒）并浏览报告；点「▶ 启动 DSH」
-   在真实 DSH Web UI 里用 3 个 preset 与 12 个技能驱动智能体，会话内
-   `python` 直接命中随包科研依赖。
+4. 点「▶ 运行」跑通双管线（真实数据约 10 秒）并浏览报告；在「⚙ 模型设置」
+   选择科研台 Preset（edu-research / health-research / research-lab / none），
+   点「▶ 启动 DSH」在真实 DSH Web UI 里以所选科研台守则与 12 个技能驱动
+   智能体，会话内 `python` 直接命中随包科研依赖。
 
 安装、数据存放位置与构建细节见 [docs/desktop.md](docs/desktop.md)。
 当前桌面端验证平台为 **macOS 11+ Apple Silicon**；Intel macOS / Windows / Linux 暂未提供。

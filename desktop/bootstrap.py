@@ -2,7 +2,7 @@
 
 把出厂模板（.app 内只读 Resources/lab）落到用户可写主目录：
 - lab/        科研工作台（工作区，管线在此产出、DSH 以此为 cwd）
-- dsh-home/   DSH 主目录（skills / .agent-presets / profiles）
+- dsh-home/   DSH 主目录（agents/skills / profiles）
 - logs/
 
 幂等：按出厂 manifest 版本标记；升级时刷新模板但保留 outputs/ 与
@@ -52,26 +52,32 @@ def ensure_home(manifest: dict | None = None, home: Path | None = None,
             (home / _MARK).write_text(manifest.get("version", ""), encoding="utf-8")
             result["copied"] = True
 
-    # DSH 主目录：skills 与 presets 从工作台安装（与 install.sh 等价的
-    # 正确位置：$DSH_HOME/skills 与 $DSH_HOME/.agent-presets）。
-    # 打包形态源为只读出厂模板；开发形态源即仓库本身。
+    # DSH 主目录装配（布局经 dump-config 实测校准）：
+    # - skills → $DSH_AGENTS_HOME/skills（即 dsh-home/agents/skills，DSH 的
+    #   skill-filesystem 扫描共享 agents 根）；
+    # - presets 不走目录挂载（.agent-presets 布局在 0.2.1-rc.2 不被扫描），
+    #   由 patch_writer 在生成 profile patch 时以 `- id: agent` 条目合并
+    #   所选科研台的 agent.cordis.yml。
     install_src = template if template is not None else paths.repo_root()
     skills_src = install_src / "skills"
-    presets_src = install_src / "presets"
+    agents_home = home / "dsh-home" / "agents"
+    agents_home.mkdir(parents=True, exist_ok=True)
     if skills_src.is_dir():
         n = 0
         for skill in sorted(skills_src.iterdir()):
             if skill.is_dir() and (skill / "SKILL.md").is_file():
-                _sync_tree(skill, home / "dsh-home" / "skills" / skill.name)
+                _sync_tree(skill, agents_home / "skills" / skill.name)
                 n += 1
         result["skills"] = n
-    if presets_src.is_dir():
-        n = 0
-        for preset in sorted(presets_src.iterdir()):
-            if preset.is_dir() and (preset / "preset.yml").is_file():
-                _sync_tree(preset, home / "dsh-home" / ".agent-presets" / preset.name)
-                n += 1
-        result["presets"] = n
+    # 兼容清理：早期版本装到 dsh-home/skills / .agent-presets（不被扫描）
+    legacy = home / "dsh-home" / "skills"
+    if legacy.is_dir():
+        shutil.rmtree(legacy, ignore_errors=True)
+    legacy_presets = home / "dsh-home" / ".agent-presets"
+    if legacy_presets.is_dir():
+        shutil.rmtree(legacy_presets, ignore_errors=True)
+    result["presets"] = len(list((install_src / "presets").glob("*/preset.yml"))) \
+        if (install_src / "presets").is_dir() else 0
 
     # web profile 凭据引用 patch（未配 key 时为空数组，DSH 正常启动）
     patch_writer.sync_patch(home, app_config)

@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.3.1 — 2026-10-25
+
+桌面端 DSH 集成校准版：修复技能装配位置与 preset 接入方式（均经 DSH
+0.2.1-rc.2 `--dump-config` 实测校准），补全随包许可文本。**v0.3.0 的
+dmg/zip 中技能实际未被 DSH 扫描加载，本版修复**。
+
+- **技能装配位置修复**：skills 从 `dsh-home/skills`（不被 0.2.1-rc.2
+  skill-filesystem 扫描）改挂到 `$DSH_AGENTS_HOME/skills`（即
+  `dsh-home/agents/skills/`）；首启自动清理两处旧布局残留；
+- **科研台 preset 接入方式修复**：`.agent-presets/` 目录布局在该版本
+  同样不被扫描（dump-config 实测仅内置 preset-ptc/minimal/cordis/standard），
+  改为 profile patch 的 `- id: agent` 配置条目注入所选科研台的
+  `agent.cordis.yml` 守则（同 presets 头部"方式 b"）；
+- **工作台设置新增「科研台 Preset」下拉**：edu-research（默认）/
+  health-research / research-lab / none（通用助手），保存后重启 DSH 生效；
+- **随包许可补全**：`Resources/licenses/` 增 Node 官方 LICENSE 全文
+  （自 nodejs.org tarball 提取）与 41 份 Python 依赖许可（自各包
+  dist-info 收集，含 README 索引）；
+- 出厂 `datasets/*/expected/*.json` 中构建机绝对路径在装配时确定性
+  清洗为仓库相对路径（产物不携带开发机目录信息）；
+- **全量实机验证**：`docs/desktop-validation.md`——干净环境冒烟 6/6 步、
+  GUI 实机交互截图证据、preset 经 dump-config 确认注入 DSH 会话配置、
+  凭据无明文落盘抽查；如实记录未验证项（在线模型响应、未公证等）；
+- build_desktop 修复重复的图标拷贝块（仅产物冗余，无行为影响）。
+
 ## v0.3.0 — 2026-10-24
 
 桌面端版本：开箱可用、内置真实 DSH 的 macOS 应用。

@@ -102,11 +102,25 @@ def test_patch_openai_compat_requires_base_url():
     assert entries[1]["config"]["provider"] in prov
 
 
-def test_sync_patch_empty_without_key(tmp_path):
-    cfg = AppConfig(tmp_path)
+def test_sync_patch_preset_and_key_semantics(tmp_path):
+    """无 key：仅 agent 守则段（preset 生效）；preset=none：完全为空；
+    有 key：凭据引用 + agent 段；patch 全程无密钥明文。"""
     from desktop.patch_writer import sync_patch
+
+    cfg = AppConfig(tmp_path)
+    cfg.save({"preset": "none"})
     target = sync_patch(tmp_path, cfg)
     assert target.read_text().strip() == "[]"
+
+    cfg.save({"preset": "edu-research"})
+    text = sync_patch(tmp_path, cfg).read_text()
+    assert "id: agent" in text and "edu-research" in text
+    assert "apiKeyEnv" not in text  # 未配置 key → 无凭据条目
+
+    cfg.save({"preset": "edu-research", "api_key": "sk-test-abc"})
+    text = sync_patch(tmp_path, cfg).read_text()
+    assert "apiKeyEnv" in text and "sk-test-abc" not in text
+    assert "id: agent" in text
 
 
 # -- bootstrap 保留规则（回归：不得覆盖用户产物） -------------------------------

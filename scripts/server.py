@@ -248,6 +248,13 @@ input:focus, select:focus { outline:1px solid var(--blue); }
   <select id="s-effort">
     <option>high</option><option>medium</option><option>low</option><option>off</option>
   </select>
+  <label>科研台 Preset（DSH 会话的智能体守则，重启 DSH 生效）</label>
+  <select id="s-preset">
+    <option value="edu-research">教育科研台（edu-research）</option>
+    <option value="health-research">公卫科研台（health-research）</option>
+    <option value="research-lab">通用科研台（research-lab）</option>
+    <option value="none">不启用（通用助手）</option>
+  </select>
   <div class="err" id="s-err"></div>
   <div class="row">
     <button class="ghost" onclick="this.closest('dialog').close()">取消</button>
@@ -332,6 +339,7 @@ async function loadSettings() {
   $('#s-provider').value = s.provider;
   $('#s-model').value = s.model || '';
   $('#s-effort').value = s.reasoning_effort || 'high';
+  $('#s-preset').value = s.preset || 'edu-research';
   $('#s-base').value = s.base_url || '';
   $('#s-key').value = '';
   $('#s-key').placeholder = s.has_key ? '已配置（留空表示不修改）' : 'sk-…';
@@ -349,6 +357,7 @@ $('#s-save').onclick = async () => {
     base_url: $('#s-base').value,
     model: $('#s-model').value,
     reasoning_effort: $('#s-effort').value,
+    preset: $('#s-preset').value,
   };
   if ($('#s-key').value.trim()) payload.api_key = $('#s-key').value.trim();
   const resp = await (await fetch('/api/settings', {

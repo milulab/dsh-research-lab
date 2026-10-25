@@ -42,7 +42,7 @@ DSH_VERSION = "0.2.1-rc.2"
 DSH_PACKAGE = "@deepseek-ai/dsh"
 APP_NAME = "DSH Research Lab"
 EXE_NAME = "DSHResearchLab"
-APP_VERSION = "0.3.0"
+APP_VERSION = "0.3.1"
 
 LAB_INCLUDE = [
     "tools", "domains", "presets", "skills", "datasets", "templates",
@@ -164,6 +164,21 @@ def copy_lab_template(dest: Path) -> None:
                             symlinks=True)
         else:
             shutil.copy2(src, dest / name)
+    sanitize_expected_paths(dest)
+
+
+def sanitize_expected_paths(lab: Path) -> None:
+    """清洗出厂 expected/*.json 中生成时记录的开发机绝对路径。
+
+    这些路径只是来源元数据（verify.py 对账仅读统计锚点），随包分发前
+    统一改写为仓库相对路径，避免携带构建机目录信息。确定性替换，产物
+    可复现。
+    """
+    prefix = str(REPO) + "/"
+    for exp in lab.glob("datasets/*/expected/*.json"):
+        text = exp.read_text(encoding="utf-8")
+        if prefix in text:
+            exp.write_text(text.replace(prefix, ""), encoding="utf-8")
 
 
 def write_shims(bin_dir: Path, exe_name: str) -> None:
@@ -225,6 +240,13 @@ def assemble_app(pyinstaller_dist: Path, node_bin: Path, dsh_dir: Path) -> Path:
         f"Node.js v{NODE_VERSION}\nhttps://nodejs.org/dist/v{NODE_VERSION}/LICENSE\n"
         "(Node.js is packaged as a runtime; full license text available at the URL above)\n",
         encoding="utf-8")
+    node_tarball = DEPS / NODE_TARBALL
+    if node_tarball.is_file():
+        with tarfile.open(node_tarball) as tf:
+            member = f"node-v{NODE_VERSION}-darwin-{platform.machine()}/LICENSE"
+            with tf.extractfile(member) as f_in:
+                (lic / "NODE-LICENSE.txt").write_bytes(f_in.read())
+    collect_python_licenses(pyinstaller_dist, lic)
 
     # 应用图标（assets/app-icon.icns，由 scripts/make_app_icon.py 生成）
     icon_src = REPO / "assets" / "app-icon.icns"
@@ -339,6 +361,55 @@ def codesign_adhoc(dist_dir: Path) -> None:
     subprocess.run(["codesign", "--remove-signature", str(exe)], capture_output=True)
     run(["codesign", "--force", "--sign", "-", exe])
     run(["codesign", "--verify", exe])
+
+
+def collect_python_licenses(pyinstaller_dist: Path, lic_dir: Path) -> int:
+    """随包 Python 依赖的完整许可文本。
+
+    来源优先级：构建 venv 的 site-packages（dist-info 最全）→
+    PyInstaller 产物 _internal（兜底）。许可文件兼容顶层与 licenses/ 子目录
+    两种布局。落至 Resources/licenses/python/<dist-info 名>.txt。
+    """
+    out = lic_dir / "python"
+    out.mkdir(parents=True, exist_ok=True)
+    roots = []
+    for sp in REPO.glob(".venv/lib/python3.*/site-packages"):
+        roots.append(sp)
+    internal = pyinstaller_dist / EXE_NAME / "_internal"
+    if internal.is_dir():
+        roots.append(internal)
+    lic_names = ("LICENSE", "LICENSE.txt", "LICENSE.md", "LICENCE",
+                 "COPYING", "COPYING.txt", "AUTHORS", "AUTHORS.txt")
+    count = 0
+    seen = set()
+    for root in roots:
+        for info in sorted(root.glob("*.dist-info")):
+            if info.name in seen:
+                continue
+            written = False
+            for cand_dir in (info, info / "licenses"):
+                if not cand_dir.is_dir():
+                    continue
+                for cand in lic_names:
+                    src = cand_dir / cand
+                    if src.is_file():
+                        shutil.copy2(src, out / f"{info.name}-{cand}")
+                        seen.add(info.name)
+                        count += 1
+                        written = True
+                        break
+                if written:
+                    break
+    index = out / "README.txt"
+    index.write_text(
+        "Python 依赖许可文本（随包分发，收集自各包 dist-info）。\n"
+        f"共 {count} 份；缺失的包以其 PyPI 页面声明为准。\n"
+        "核心栈：pandas(BSD-3) numpy(BSD-3) scipy(BSD-3) statsmodels(BSD-3)\n"
+        "scikit-learn(BSD-3) matplotlib(BSD 兼容 PSD) PyYAML(MIT)\n"
+        "pywebview(BSD-3) pyobjc(MIT) PyInstaller(GPL v2 + bootloader 例外；\n"
+        "仅作构建工具，其例外条款明确允许分发含 bootloader 的产物)。\n",
+        encoding="utf-8")
+    return count
 
 
 def verify_signature(app: Path) -> bool:

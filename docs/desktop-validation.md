@@ -34,7 +34,10 @@ statsmodels 0.15.0 / scikit-learn 1.9.1 / matplotlib 3.11.2 / PyYAML 6.0.3）+
 
 ## 3. GUI 实机验证（打包应用，截图证据）
 
-截图目录：`build/desktop/gui-evidence/`（不入库）。流程：`open` 启动 .app →
+截图目录：`build/desktop/gui-evidence/`（不入库）。说明：GUI 证据取自同日
+同一代码树的预发布构建（与 v0.3.1 最终产物特性一致，仅版本号命名与构建
+脚本冗余拷贝清理不同）；§1 哈希对应 v0.3.1 最终产物，其冒烟与自动验证
+在最终产物上重跑通过。流程：`open` 启动 .app →
 真实 pywebview 窗口出现（`01-app-window-launch.png`，全屏截屏）→ 工作台服务
 监听 `127.0.0.1` 随机端口（lsof 确认）→ 用浏览器驱动（agent-browser）对**同一
 服务实例**逐项交互：
